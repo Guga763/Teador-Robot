@@ -49,18 +49,26 @@ void drawEmoNormal(int offsetX = 0, int offsetY = 0) {
   display.display();
 }
 
-// 2. Любопытство (8–20 см): Плавное «вытягивание» глаз к объекту
+// 2. Любопытство (8–20 см): Динамичное покачивание и всматривание
 void drawEmoCurious() {
-  for (int i = 0; i <= 6; i += 2) {
+  // Плавное вытягивание и микро-движение вверх-вниз (разглядывает)
+  for (int yShift = 0; yShift <= 4; yShift += 2) {
     display.clearDisplay();
-    drawEmoEye(24 - (i / 2), 11 - i, 30 + i, 42 + i, 10);
-    drawEmoEye(74 - (i / 2), 11 - i, 30 + i, 42 + i, 10);
+    drawEmoEye(28, 9 - yShift, 32, 46 + yShift, 12);
+    drawEmoEye(68, 9 - yShift, 32, 46 + yShift, 12);
     display.display();
-    delay(15);
+    delay(25);
+  }
+  for (int yShift = 4; yShift >= 0; yShift -= 2) {
+    display.clearDisplay();
+    drawEmoEye(28, 9 - yShift, 32, 46 + yShift, 12);
+    drawEmoEye(68, 9 - yShift, 32, 46 + yShift, 12);
+    display.display();
+    delay(25);
   }
 }
 
-// 3. Испуг / Шок (< 8 см): Дрожание (Jitter) + расширенные зрачки
+// 3. Испуг / Шок (< 8 см): Дрожание (Jitter) + зрачки
 void drawEmoScared() {
   for (int j = 0; j < 3; j++) {
     int shakeX = random(-2, 3);
@@ -77,16 +85,36 @@ void drawEmoScared() {
   }
 }
 
-// 4. Счастье / Радость (20–35 см): Кинематографичный прищур
+// 4. Счастье / Радость (20–35 см): Радостное подпрыгивание дуг
 void drawEmoHappy() {
-  for (int cut = 0; cut <= 24; cut += 6) {
-    display.clearDisplay();
-    drawEmoEye(24, 11, 30, 42, 10);
-    drawEmoEye(74, 11, 30, 42, 10);
-    
-    display.fillRect(15, 53 - cut, 98, cut + 5, SSD1306_BLACK);
-    display.display();
-    delay(15);
+  // Двойное легкое подпрыгивание глазок от радости
+  for (int bounce = 0; bounce < 2; bounce++) {
+    for (int yOffset = 0; yOffset <= 6; yOffset += 3) {
+      display.clearDisplay();
+      
+      // Счастливые прищуренные глаза
+      drawEmoEye(24, 15 - yOffset, 30, 35, 10);
+      drawEmoEye(74, 15 - yOffset, 30, 35, 10);
+      
+      // Вырез снизу для формы дуги
+      display.fillRoundRect(20, 28 - yOffset, 38, 30, 8, SSD1306_BLACK);
+      display.fillRoundRect(70, 28 - yOffset, 38, 30, 8, SSD1306_BLACK);
+      
+      display.display();
+      delay(20);
+    }
+    for (int yOffset = 6; yOffset >= 0; yOffset -= 3) {
+      display.clearDisplay();
+      
+      drawEmoEye(24, 15 - yOffset, 30, 35, 10);
+      drawEmoEye(74, 15 - yOffset, 30, 35, 10);
+      
+      display.fillRoundRect(20, 28 - yOffset, 38, 30, 8, SSD1306_BLACK);
+      display.fillRoundRect(70, 28 - yOffset, 38, 30, 8, SSD1306_BLACK);
+      
+      display.display();
+      delay(20);
+    }
   }
 }
 
@@ -174,7 +202,7 @@ void drawContinuousSleepZzz() {
   if (millis() - zzzTimer > 70) {
     zzzOffset += 2;
     if (zzzOffset > 18) { 
-      zzzOffset = 0; // Сброс цикла: буквы заново вылетают снизу
+      zzzOffset = 0; // Сброс цикла
     }
     zzzTimer = millis();
   }
