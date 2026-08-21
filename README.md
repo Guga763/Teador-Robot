@@ -5,7 +5,8 @@
 
 Проект реализует адаптивное поведение: глаза робота оживают, реагируют на приближение руки, прищуриваются, дрожат от испуга и засыпают при отсутствии активности.
 
-![Робот в действии](https://raw.githubusercontent.com/username/repository/main/preview.gif) *(сюда потом вставишь ссылку на гифку из Wokwi)*
+![Робот в действии]<img width="502" height="203" alt="Анимация" src="https://github.com/user-attachments/assets/b1da6b13-27ad-4725-9c6f-538cf82f4ed5" />
+
 
 ## 🛠 Технологии и Стек
 * **Язык:** C++ (Arduino Framework)
